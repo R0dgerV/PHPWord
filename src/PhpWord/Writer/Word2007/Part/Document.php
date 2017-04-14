@@ -135,4 +135,16 @@ class Document extends AbstractPart
 
         $xmlWriter->endElement(); // w:sectPr
     }
+    
+    /**
+     * @param AbstractElement $element
+     * @return string
+     */
+    public function getTableAsText(AbstractElement $element)
+    {
+        $xmlWriter = $this->getXmlWriter();
+        $writer = new \PhpOffice\PhpWord\Writer\Word2007\Element\Table($xmlWriter, $element);
+        $writer->write();
+        return $xmlWriter->getData();
+    }    
 }
