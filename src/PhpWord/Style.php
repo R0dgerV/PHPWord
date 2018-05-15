@@ -10,8 +10,8 @@
  * file that was distributed with this source code. For the full list of
  * contributors, visit https://github.com/PHPOffice/PHPWord/contributors.
  *
- * @link        https://github.com/PHPOffice/PHPWord
- * @copyright   2010-2016 PHPWord contributors
+ * @see         https://github.com/PHPOffice/PHPWord
+ * @copyright   2010-2018 PHPWord contributors
  * @license     http://www.gnu.org/licenses/lgpl.txt LGPL version 3
  */
 
@@ -95,7 +95,13 @@ class Style
      */
     public static function addTitleStyle($depth, $fontStyle, $paragraphStyle = null)
     {
-        return self::setStyleValues("Heading_{$depth}", new Font('title', $paragraphStyle), $fontStyle);
+        if ($depth == null) {
+            $styleName = 'Title';
+        } else {
+            $styleName = "Heading_{$depth}";
+        }
+
+        return self::setStyleValues($styleName, new Font('title', $paragraphStyle), $fontStyle);
     }
 
     /**
@@ -126,8 +132,6 @@ class Style
      * Reset styles.
      *
      * @since 0.10.0
-     *
-     * @return void
      */
     public static function resetStyles()
     {
@@ -165,9 +169,9 @@ class Style
     {
         if (isset(self::$styles[$styleName])) {
             return self::$styles[$styleName];
-        } else {
-            return null;
         }
+
+        return null;
     }
 
     /**
